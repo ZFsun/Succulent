@@ -1,0 +1,89 @@
+{% load staticfiles %}
+{% load pagetag %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ihandbook</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/sucapp.css' %}">
+    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <style>
+        .pageindex {
+            position: absolute;
+            bottom: 60px;
+            right: 100px;
+        }
+        .suc_info{
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="suc_info">
+    <ul>
+        {% for sucinfo in pageobject %}
+            <li class="suc_info_li">
+                <table width="100%" class="sucinfo_table table table-hover">
+                    <tr>
+                        <td>
+                            <span class="">
+                                <a href="/sucapp/sucdetail_{{ sucinfo.id }}" height='450' class='preview'
+                                   title="{{ sucinfo.name }}" target="rightFrame">
+                                    <img class="suc_img img-rounded" src="/static/media/{{ sucinfo.image }}" width="150"
+                                         height="150" alt=""/>
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+
+                </table>
+                <div class="suc_name">
+                    <a href="/sucapp/sucdetail_{{ sucinfo.id }}" class="title"
+                       target="rightFrame">{{ sucinfo.name }}</a>
+                </div>
+
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+<nav class="pageindex" aria-label="Page navigation">
+    <ul class="pagination">
+        {% ifequal currentpage 1 %}
+            <li class="disabled"><span aria-hidden="true">首页</span></li>
+        {% else %}
+            <li class=""><a href="/sucapp/ihandbook/1" aria-label="first"><span aria-hidden="true">首页</span></a>
+            </li>
+        {% endifequal %}
+
+        {% if pageobject.has_previous %}
+            <li class=""><a href="/sucapp/ihandbook/{{ pageobject.previous_page_number }}" aria-label="Next"><span
+                    aria-hidden="true">上一页</span></a></li>
+        {% else %}
+            <li class="disabled"><span aria-hidden="true">上一页</span></li>
+        {% endif %}
+
+        {% for p in plist %}
+            {% guess_page currentpage p %}
+        {% endfor %}
+
+        {% if pageobject.has_next %}
+            <li class=""><a href="/sucapp/ihandbook/{{ pageobject.next_page_number }}" aria-label="Next"><span
+                    aria-hidden="true">下一页</span></a></li>
+        {% else %}
+            <li class="disabled"><span aria-hidden="true">下一页</span></li>
+        {% endif %}
+
+        {% ifequal currentpage totalpages %}
+            <li class="disabled"><span aria-hidden="true">尾页</span></li>
+        {% else %}
+            <li class=""><a href="/sucapp/ihandbook/{{ totalpages }}" aria-label="first"><span
+                    aria-hidden="true">尾页</span></a>
+            </li>
+        {% endifequal %}
+    </ul>
+</nav>
+</body>
+</html>

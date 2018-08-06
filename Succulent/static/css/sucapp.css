@@ -1,0 +1,9 @@
+/*handbook css*/
+body{margin: 0;overflow:hidden;}
+.suc_info {width: 100%;overflow: hidden;position: absolute;
+    top: 0px;left: 30px;right: 30px;}
+.suc_info_li {width: auto;display: block;float: left;}
+.suc_img:hover {-ms-transform: scale(1.1);-webkit-transform: scale(1.1);transform: scale(1.1);}
+.suc_name {text-align: center;}
+.sucinfo_table {margin: 0;}
+.sucinfo_table td {margin: 2px;padding: 8px;}

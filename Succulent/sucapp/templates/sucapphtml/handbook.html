@@ -1,0 +1,134 @@
+{% load staticfiles %}
+{% load pagetag %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多肉图鉴</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/sucapp.css' %}">
+    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <style>
+        html,body{height: 100%;width: 100%}
+        .handbook_search {
+            display: inline;
+            width: 200px;
+            position: relative;
+            top: 10px;
+            right: 30px;
+        }
+
+        .handbook_search {
+        {#border: 2px solid black;#} width: 220px;
+            height: 30px;
+            display: inline-block;
+        {#position: relative;#}{#left: 800px;#}{#top: 10px;#}
+        }
+
+        .handbook_search_from {
+            width: 200px;
+        }
+
+        .pageindex {
+            position: absolute;
+            bottom: -15px;
+            right: 100px;
+        }
+
+        .handbook_select {
+            width: 400px;
+            height: 30px;
+        {#border: 2px solid black;#} display: inline-block;
+        }
+        #handbookIframe{
+            position: absolute;
+            top: 50px;
+            border: 0px solid black;
+            display: block;
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+
+</head>
+<body>
+<div style="height: 30px;text-align: center">
+
+    <div class="handbook_select">
+        <form action="/sucapp/ihandbook/" target="handbookIframe" name="fg_select" method="get">
+        {% csrf_token %}
+            <select name="family" id="family" style="height: 30px;margin: 2px" class="family" onChange="javaScript:document.fg_select.submit()">
+                <option value="">请选择科</option>
+                {% for f in familylist %}
+                    <option value="{{ f.family }}">{{ f.family }}</option>
+                {% endfor %}
+            </select>
+            <select id="genus" name="genus" style="height: 30px;margin: 2px 200px 2px 2px" class="genus" onChange="javaScript:document.fg_select.submit()">
+                <option value="">请选择属</option>
+                {% for f in genuslist %}
+                    <option value="{{ f.genus }}">{{ f.genus }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+    <div class="handbook_search">
+        <form class="handbook_search_from" role="form" method="get" action="/sucapp/ihandbook/" target="handbookIframe">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search_info" placeholder="请输入查询信息">
+
+                        <span class="input-group-btn">
+						<button class="btn btn-default" type="submit">
+							搜索
+						</button>
+					</span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+        </form>
+    </div>
+</div>
+<iframe id="handbookIframe" name="handbookIframe" src="/sucapp/ihandbook"></iframe>
+
+
+<script type="text/javascript">
+    $(function () {
+
+        $('#family').change(function () {
+
+            $.get('/sucapp/getgenus?fam=' + $(this).val(), function (data) {
+                {#alert(data.data);#}
+                genus = $('#genus');
+                genus.empty().append('<option value="">请选择属</option>');
+                $.each(data.data, function () {
+                    genus.append('<option value=' + this + '>' + this + '</option>');
+                })
+            })
+
+            $.get('/sucapp/handbook/', {family:$(this).val(),genus:$('#genus').val()}, function () {
+
+            })
+
+            $(".suc_info").load(location.href+".suc_info")
+
+
+
+
+        })
+
+        $('#genus').change(function () {
+
+            $.get('/sucapp/handbook/', {family:$('#family').val(),genus:$('#genus').val()}, function () {
+
+            })
+            $(".suc_info").load(location.href+".suc_info")
+
+        })
+
+    })
+
+</script>
+</body>
+</html>

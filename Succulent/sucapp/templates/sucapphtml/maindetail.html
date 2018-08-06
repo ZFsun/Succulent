@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>养护知识详情页</title>
+    <style>
+        body{
+            padding: 20px 30px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    {% for main in maininfo %}
+    <article>
+        <header>
+            <h1>{{ main.title }}</h1>
+            <p>作者：{{ main.author }}|日期：{{ main.editDate }}</p>
+        </header>
+        <div>
+            <p>
+                {% autoescape off %}
+                {{ main.content }}
+                {% endautoescape %}
+            </p>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+</body>
+</html>

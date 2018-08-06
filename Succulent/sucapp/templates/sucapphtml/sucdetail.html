@@ -1,0 +1,105 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多肉详情</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+    <style>
+        body{
+            padding: 20px 35px;
+        }
+        .detail_img{
+            {#width: 300px;#}
+            {#height: 300px;#}
+            display: inline-block;
+            vertical-align: top;
+        }
+        .detail_main{
+            {#width: 300px;#}
+            {#height: 300px;#}
+            margin: 10px 50px;
+            display: inline-block;
+            vertical-align: baseline;
+            position: relative;
+            top: 50px;
+
+        }
+        .detail_sucinfo{
+            margin: 20px 50px;
+        }
+        .detail_img img{
+            margin: 10px;
+            width:320px;
+            height:320px;
+            padding: 15px;
+            border:solid 1px silver;
+        }
+        .detail_img img:hover{
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+{% for info in infoid %}
+    <div>
+<div class="detail_img">
+    <img class=""  src="/static/media/{{ info.image }}" alt="">
+{#    <div style="position:relative; z-index:2; left:120px; bottom:100px">{{ info.name }}</div>#}
+
+</div>
+<div class="detail_main">
+    <table class="detail_sucinfo table">
+        <tr>
+            <th>名称：</th>
+            <td>{{ info.name }}</td>
+            <th>光照：</th>
+            <td>{{ info.lighttime }}小时/天</td>
+            <th>季节：</th>
+            <td>{{ info.season }}</td>
+        </tr>
+        <tr>
+            <th>科：</th>
+            <td>{{ info.family }}</td>
+            <th>水分：</th>
+            <td>{{ info.water }}次/月</td>
+            <th>父本：</th>
+            {% if info.maleparent %}
+            <td>{{ info.maleparent }}</td>
+            {% else %}
+            <td>未知</td>
+            {% endif %}
+        </tr>
+        <tr>
+            <th>属：</th>
+            <td>{{ info.genus }}</td>
+            <th>温度：</th>
+            <td>{{ info.temperature }}</td>
+            <th>母本：</th>
+            {% if info.femaleparent %}
+            <td>{{ info.femaleparent }}</td>
+            {% else %}
+            <td>未知</td>
+            {% endif %}
+        </tr>
+
+    </table>
+{#    <ul class="list-group-item">#}
+{#    <li class="list-group-item">{{ info.name }}</li>#}
+{#    <li class="list-group-item">{{ info.family }}/{{ info.genus }}</li>#}
+{#    <li>光照：{{ info.lighttime }}</li>#}
+{#    <li>温度：{{ info.temperature }}</li>#}
+{#    <li>水分：{{ info.water }}</li>#}
+{#    <li>季节：{{ info.season }}</li>#}
+{#    </ul>#}
+</div>
+    </div>
+    <div>
+        <ul class="list-group-item">
+            <li class="list-group-item">简介:</li>
+            <li class="list-group-item">{{ info.introduction }}</li>
+        </ul>
+    </div>
+{% endfor %}
+</body>
+</html>

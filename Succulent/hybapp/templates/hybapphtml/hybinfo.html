@@ -1,0 +1,126 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+    <style>
+        #hybinfo{
+            width: 100%;
+            text-align: center;
+
+        }
+        #hybinfo2{
+            display: inline-block;
+
+        }
+        #hybinfo2 div{
+            margin: 25px;
+
+            float: left;
+
+        }
+
+    </style>
+</head>
+<body>
+{#<h1>杂交信息</h1>#}
+{% for hyb in hybinfo %}
+<div id="hybinfo">
+<div id="hybinfo2">
+    <div>
+    <img class="img-circle" width="200" height="200" src="/static/media/{{ hyb.femaleparent.image }}" alt="">
+
+    <table class="table">
+        <tr>
+            <th>母本</th>
+            <td>{{ hyb.femaleparent.name }}</td>
+        </tr>
+        <tr>
+            <th>植株形状</th>
+            <td>{{ hyb.femaleparent.plantshape }}</td>
+        </tr>
+        <tr>
+            <th>叶子形状</th>
+            <td>{{ hyb.femaleparent.leafshape }}</td>
+        </tr>
+        <tr>
+            <th>叶子颜色</th>
+            <td>{{ hyb.femaleparent.leafcolor }}</td>
+        </tr>
+        <tr>
+            <th>叶尖颜色</th>
+            <td>{{ hyb.femaleparent.leafopex_color }}</td>
+        </tr>
+        <tr>
+            <th>叶尖长度</th>
+            <td>{{ hyb.femaleparent.leafopex }}</td>
+        </tr>
+    </table>
+    </div>
+    <div>
+    <img class="img-circle" width="200" height="200" src="/static/media/{{ hyb.maleparent.image }}" alt="">
+
+        <table class="table">
+        <tr>
+            <th>父本</th>
+            <td>{{ hyb.maleparent.name }}</td>
+        </tr>
+        <tr>
+            <th>植株形状</th>
+            <td>{{ hyb.maleparent.plantshape }}</td>
+        </tr>
+        <tr>
+            <th>叶子形状</th>
+            <td>{{ hyb.maleparent.leafshape }}</td>
+        </tr>
+        <tr>
+            <th>叶子颜色</th>
+            <td>{{ hyb.maleparent.leafcolor }}</td>
+        </tr>
+        <tr>
+            <th>叶尖颜色</th>
+            <td>{{ hyb.maleparent.leafopex_color }}</td>
+        </tr>
+        <tr>
+            <th>叶尖长度</th>
+            <td>{{ hyb.maleparent.leafopex }}</td>
+        </tr>
+    </table>
+    </div>
+    <div>
+    <img class="img-circle" width="200" height="200" src="/static/media/{{ hyb.progeny.image }}" alt="">
+
+        <table class="table">
+        <tr>
+            <th>孩子</th>
+            <td>{{ hyb.progeny.name }}</td>
+        </tr>
+        <tr>
+            <th>植株形状</th>
+            <td>{{ hyb.progeny.plantshape }}</td>
+        </tr>
+        <tr>
+            <th>叶子形状</th>
+            <td>{{ hyb.progeny.leafshape }}</td>
+        </tr>
+        <tr>
+            <th>叶子颜色</th>
+            <td>{{ hyb.progeny.leafcolor }}</td>
+        </tr>
+        <tr>
+            <th>叶尖颜色</th>
+            <td>{{ hyb.progeny.leafopex_color }}</td>
+        </tr>
+        <tr>
+            <th>叶尖长度</th>
+            <td>{{ hyb.progeny.leafopex }}</td>
+        </tr>
+    </table>
+    </div>
+</div>
+</div>
+{% endfor %}
+</body>
+</html>

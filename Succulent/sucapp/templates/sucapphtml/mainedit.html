@@ -1,0 +1,63 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>养护编辑</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+    <script type="text/javascript" src="{% static 'js/jquery-1.11.0.min.js' %}"></script>
+    <script type="text/javascript" src='/static/tiny_mce/tiny_mce.js'></script>
+    <script type="text/javascript">
+        tinyMCE.init({
+            'mode':'textareas',
+            'theme':'advanced',
+            'width':750,
+            'height':350,
+        });
+    </script>
+    <style>
+        .mainedit{
+            height: 80%;
+            width: 80%;
+            position: absolute;
+            top: 3%;
+            left: 10%;
+
+        }
+        .mainedit_title{
+            margin: 10px 0;
+            width: 748px;
+            height: 30px;
+        }
+        .mainedit_btn{
+            position: relative;
+            left: 700px;
+            bottom: 10px;
+        }
+    </style>
+
+</head>
+<body>
+<form class="mainedit" method="post" action="/sucapp/editsave">
+    {% csrf_token %}
+    <input id="title" class="mainedit_title" type="text" name="title" placeholder="请输入文章标题">
+    <br>
+    <textarea id="content" name='content'></textarea>
+    <br>
+    <input id="maineditsub" class="mainedit_btn btn btn-primary active" type="submit" value="确定">
+</form>
+<script type="text/javascript">
+
+        $('#maineditsub').click(function () {
+
+            if($('#title').val()==''){
+                alert('题目不能为空！')
+            }
+            if($('#content').val()==''){
+                alert('内容不能为空！')
+            }
+        })
+
+</script>
+</body>
+</html>
